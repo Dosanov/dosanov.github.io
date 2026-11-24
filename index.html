@@ -1,69 +1,490 @@
-[24/11/26 11:09] . .: <!DOCTYPE html> <html lang="uz"> <head> <meta charset="UTF-8" /> <meta name="viewport"content="width=device-width, initial-scale=1.0" /> <title>Yagona Admin Panel — O‘quv Markazi</title> <style> :root{ --bg: #0b1120; --panel: #111827; --panel-2: #1e293b; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --ok: #22c55e; --warn: #f59e0b; --err: #ef4444; --line: rgba(148, 163, 184, 0.18); } * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, sans-serif; } body { background: var(--bg); color: var(--text); min-height: 100vh; } .topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 22px; background: var(--panel); border-bottom: 1px solid var(--line); } .brand { display: flex; align-items: center; gap: 12px; } .brand img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; border: 1px solid var(--line); background: #0284c7; } .brand-title { font-size: 17px; font-weight: 700; } .brand-sub { font-size: 12px; color: var(--muted); } .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; } input, select, button { border-radius: 9px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); padding: 9px12px; font-size: 14px; } button { cursor: pointer; font-weight: 600; transition: 0.15s ease; } button:hover { opacity: 0.92; } .btn-sky { background: var(--accent); color: #041c2c; border: none; } .btn-ok { background: var(--ok); color: #052e16; border: none; } .btn-warn { background: var(--warn); color: #1f1300; border: none; } .btn-err { background: var(--err); color: #fff; border: none; } .wrap { max-width: 1180px; margin: 22px auto; padding: 0 16px; } .card {background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; }.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; } .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 11px; } label { font-size: 12px; color: var(--muted); } h2 { font-size: 18px; margin-bottom: 8px; } h3 { font-size: 15px; color: var(--accent); margin-bottom: 10px; } p.hint { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.45; } .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; } .tab-btn.active { background: var(--accent); color: #041c2c; border: none; } .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 10px; margin-bottom: 14px; } .stat { background: var(--panel-2); border: 1px solid var(--line); border-radius: 11px; padding: 12px; } .stat-num { font-size: 21px; font-weight: 700; margin-top: 4px; } table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; } th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); } th { color: var(--muted); font-size: 12px; } .tag { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(56,189,248,0.15); color: var(--accent); } .tag-ok { background: rgba(34,197,94,0.15); color: #4ade80; } .tag-err { background: rgba(239,68,68,0.15); color: #f87171; } .toast { padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-size: 13px; } .toast-ok { background: rgba(34,197,94,0.14); border: 1px solid rgba(34,197,94,0.4); } .toast-err { background: rgba(239,68,68,0.14); border: 1px solid rgba(239,68,68,0.4); } .hidden { display: none !important;
-[24/11/26 11:09] . .: }</style> </head> <body> <header class="topbar"> <div class="brand"> <img id="logoImg" src="" alt="Logo" /><div> <div class="brand-title" id="brandTitle">Markaz Admin Tizimi</div> <div class="brand-sub"id="brandSub">Yagona kirish va boshqaruv markazi</div> </div> </div> <div class="actions"> <span id="userBadge"class="tag">Kirilmagan</span> <button id="logoutBtn" class="btn-err hidden">Chiqish</button> </div> </header><main class="wrap"> <div id="toast" class="hidden"></div> <!-- YAGONA KIRISH VA RO'YXATDAN O'TISH --><section id="authView" class="grid-2"> <div class="card"> <h2>Yagona Kirish</h2> <p class="hint">Barcha foydalanuvchilar bitta forma orqali kiradi. Admin panelga faqat yagona Admin kira oladi.</p> <form id="loginForm"><div class="field"> <label>Login</label> <input type="text" id="loginUser" required placeholder="login" /> </div><div class="field"> <label>Parol</label> <input type="password" id="loginPass" required placeholder="••••••" /></div> <button type="submit" class="btn-sky">Kirish</button> </form> <p class="hint" style="margin-top:12px;">Sinov loginlari: <b>admin</b> / <b>123</b> (Yagona Admin), <b>ustoz1</b> / <b>123</b>, <b>oquvchi1</b> / <b>123</b> </p> </div> <div class="card"> <h2>Ro‘yxatdan o‘tish</h2> <p class="hint">Tug‘ilgan yilingizni kiriting. 2026-yil hisobida yoshi minimal yosh chegarasidan kichik bo‘lganlar faqat O‘quvchi bo‘la oladi.</p> <formid="regForm"> <div class="field"> <label>Ism Familiya</label> <input type="text" id="regName" requiredplaceholder="Masalan: Jasurbek Qodirov" /> </div> <div class="grid-2"> <div class="field"> <label>Tug‘ilgan yil</label> <input type="number" id="regYear" required min="1950" max="2022" placeholder="2010" /> </div> <divclass="field"> <label>Rol</label> <select id="regRole"> <option value="student">O‘quvchi</option> <optionvalue="teacher">Ustoz (yosh chegarasi bilan)</option> </select> </div> </div> <div class="grid-2"> <divclass="field"> <label>Login</label> <input type="text" id="regUser" required placeholder="yangi_login" /> </div><div class="field"> <label>Parol</label> <input type="password" id="regPass" required placeholder="parol" /> </div></div> <button type="submit" class="btn-ok">Ro‘yxatdan o‘tish</button> </form> </div> </section> <!-- YAGONA ADMIN PANEL (FAQAT BOSH ADMIN UCHUN) --> <section id="adminWorkspace" class="hidden"> <divclass="card"> <h2>Admin Boshqaruv Paneli (Yagona Admin)</h2> <p class="hint">Bu panelga faqat yagona Admin kira oladi.
-[24/11/26 11:09] . .: Barcha sozlamalar, foydalanuvchilar, baho/davomat, reyting va logo shu yerda.</p> <div class="stats"id="adminStats"></div> <div class="tabs"> <button class="tab-btn active" data-tab="tabUsers">Foydalanuvchilar & Yosh</button> <button class="tab-btn" data-tab="tabGrades">Baho, Davomat & Reyting</button> <button class="tab-btn" data-tab="tabBrand">Logo & Sozlamalar</button> </div> <!-- Tab 1: Foydalanuvchilar va yosh chegarasi --><div id="tabUsers"> <div class="grid-2"> <div class="card" style="background:var(--panel-2);"> <h3>Yosh chegarasi sozlamasi</h3> <div class="field"> <label>Ustoz bo‘lish uchun minimal yosh (2026-yil)</label> <inputtype="number" id="ageLimitInput" min="15" max="80" /> </div> <button id="saveAgeBtn" class="btn-sky">Saqlash</button> </div> <div class="card" style="background:var(--panel-2);"> <h3>Yangi ustoz yoki o‘quvchi qo‘shish</h3> <form id="createUserForm"> <div class="field"> <label>Ism Familiya</label> <input type="text"id="newUName" required /> </div> <div class="grid-2"> <div class="field"> <label>Tug‘ilgan yil</label> <inputtype="number" id="newUYear" required min="1950" max="2022" value="2009" /> </div> <div class="field"><label>Rol</label> <select id="newURole"> <option value="student">O‘quvchi</option> <optionvalue="teacher">Ustoz</option> </select> </div> </div> <div class="grid-2"> <div class="field"><label>Login</label> <input type="text" id="newUUser" required /> </div> <div class="field"> <label>Parol</label><input type="password" id="newUPass" required /> </div> </div> <button type="submit" class="btn-ok">Qo‘shish</button> </form> </div> </div> <h3>Barcha foydalanuvchilar ro‘yxati</h3> <table> <thead> <tr><th>Ism Familiya</th> <th>Login</th> <th>Tug‘ilgan yil (Yosh)</th> <th>Rol</th> <th>Amal</th> </tr> </thead><tbody id="usersTbody"></tbody> </table> </div> <!-- Tab 2: Baho, Davomat va Reyting --> <div id="tabGrades"class="hidden"> <div class="card" style="background:var(--panel-2);"> <h3>Baho va davomat yozish</h3> <formid="addRecordForm" class="grid-2"> <div class="field"> <label>O‘quvchi</label> <select id="recStudent"></select></div> <div class="field"> <label>Fan / mavzu</label> <input type="text" id="recSubject" requiredplaceholder="Ingliz tili / Matematika" /> </div> <div class="field"> <label>Baho (1-100)</label> <inputtype="number" id="recScore" required min="1" max="100" placeholder="90" /> </div> <div class="field"><label>Davomat</label> <select id="recAtt"> <option value="Keldi">Keldi</option> <optionvalue="Kelmadi">Kelmadi</option> <option value="Kechikdi">Kechikdi</option> </select> </div> <buttontype="submit" class="btn-sky">Saqlash</button> </form> </div> <div class="grid-2"> <div> <h3>O‘quvchilar reytingi</h3> <table> <thead> <tr><th>#</th><th>O‘quvchi</th><th>Jami / O‘rtacha</th><th>Keldi</th></tr></thead> <tbody id="ratingTbody"></tbody> </table> </div> <div> <h3>Oxirgi yozuvlar</h3> <table> <thead> <tr><th>O‘quvchi</th><th>Fan</th><th>Baho</th><th>Davomat</th></tr> </thead> <tbody id="recordsTbody"></tbody> </table> </div> </div> </div> <!-- Tab 3: Logo va markaz sozlamalari --> <div id="tabBrand"class="hidden"> <div class="grid-2"> <div class="field"> <label>Markaz nomi</label> <input type="text"id="brandNameInput" /> </div> <div class="field"> <label>Logo URL yoki fayl</label> <input type="text"id="brandUrlInput" placeholder="https://..." /> </div> </div> <div class="actions" style="margin-top:8px;"> <inputtype="file" id="brandFileInput" accept="image/*" /> <button id="saveBrandBtn" class="btn-ok">Logoni va nomni saqlash</button> <button id="resetBrandBtn" class="btn-warn">Standart logo</button> </div> </div> </div></section> <!-- USTOZ KO'RINISHI --> <section id="teacherWorkspace" class="hidden"> <div class="card"><h2>Ustoz Paneli — O‘quvchi,
-[24/11/26 11:09] . .: Baho va Davomat</h2> <div class="grid-2"> <form id="tAddStudentForm"class="card" style="background:var(--panel-2);margin:0;"> <h3>Yangi o‘quvchi qo‘shish</h3> <div class="field"><label>Ism Familiya</label><input type="text" id="tsName" required /></div> <div class="field"><label>Tug‘ilgan yil</label><input type="number" id="tsYear" required min="1995" max="2022" value="2011" /></div> <divclass="field"><label>Login</label><input type="text" id="tsUser" required /></div> <div class="field"><label>Parol</label><input type="password" id="tsPass" required /></div> <button type="submit" class="btn-ok">O‘quvchi qo‘shish</button> </form> <form id="tGradeForm" class="card" style="background:var(--panel-2);margin:0;"> <h3>Baho va davomat yozish</h3> <div class="field"><label>O‘quvchi</label><selectid="tgStudent"></select></div> <div class="field"><label>Fan</label><input type="text" id="tgSubject" requiredplaceholder="Masalan: Ingliz tili" /></div> <div class="field"><label>Baho (1-100)</label><input type="number"id="tgScore" required min="1" max="100" /></div> <div class="field"> <label>Davomat</label> <select id="tgAtt"><option value="Keldi">Keldi</option> <option value="Kelmadi">Kelmadi</option> <optionvalue="Kechikdi">Kechikdi</option> </select> </div> <button type="submit" class="btn-sky">Saqlash</button></form> </div> </div> </section> <!-- O'QUVCHI KO'RINISHI --> <section id="studentWorkspace" class="hidden"><div class="card"> <h2>O‘quvchi Paneli — Baholar va Reyting</h2> <div class="stats" id="studentSummary"></div> <h3>Mening baholarim va davomatim</h3> <table> <thead><tr><th>Fan</th><th>Baho</th><th>Davomat</th><th>Sana</th></tr></thead> <tbody id="myGradesTbody"></tbody> </table> </div> <divclass="card"> <h3>Umumiy reyting</h3> <table> <thead><tr><th>#</th><th>O‘quvchi</th><th>Ball</th><th>Keldi</th></tr></thead> <tbody id="studentBoardTbody"></tbody> </table> </div> </section> </main> <script>const YEAR_NOW = 2026; const DB_KEY = "single_admin_center_v2"; const SOLE_ADMIN_ID = "sole_admin_1"; const DEF_LOGO = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80'><rect width='80' height='80' rx='16' fill='%230284c7'/><text x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='28' font-family='Arial' font-weight='bold'>OM</text></svg>"; const seed = { brand: { name: "Markaz Admin Tizimi", sub: "Yagona kirish va boshqaruv markazi", logo: DEF_LOGO, minTeacherAge: 18 }, users: [ { id: SOLE_ADMIN_ID, name: "Bosh Admin", year: 1990, role: "admin", user: "admin", pass: "123" }, { id: "2", name: "Aziz Ustoz", year: 1996, role: "teacher", user: "ustoz1", pass: "123" }, { id: "3", name: "Bobur", year: 2011, role: "student", user: "oquvchi1", pass: "123" }, { id: "4", name: "Malika", year: 2010, role: "student", user: "oquvchi2", pass: "123" } ], records: [ { id: "r1", studentId: "3", subject: "Ingliz tili", score: 92, att: "Keldi", date: "2026-11-22" }, { id: "r2", studentId: "4", subject: "Ingliz tili", score: 88, att: "Keldi", date: "2026-11-22" } ], sessionId: null }; let db = JSON.parse(localStorage.getItem(DB_KEY)  "null")  structuredClone(seed); // Faqat bitta yagona admin hisobi mavjud bo'lishini kafolatlash db.users = db.users.map(u =>(u.role === "admin" && u.id !== SOLE_ADMIN_ID) ?
-[24/11/26 11:09] . .: { ...u, role: "teacher" } : u); if (!db.users.some(u => u.id === SOLE_ADMIN_ID)) { db.users.unshift(structuredClone(seed.users[0])); } function persist() { localStorage.setItem(DB_KEY, JSON.stringify(db)); } function ageOf(y) { return YEAR_NOW - Number(y); }function currentUser() { return db.users.find(u => u.id === db.sessionId)  null; } function isSoleAdmin(u) { returnBoolean(u && u.id === SOLE_ADMIN_ID && u.role === "admin"); } function notify(msg, err = false) { const el = document.getElementById("toast"); el.className = `toast ${err ? "toast-err" : "toast-ok"}`; el.textContent = msg; el.classList.remove("hidden"); setTimeout(() => el.classList.add("hidden"), 3500); } function paintBrand() {document.getElementById("logoImg").src = db.brand.logo  DEF_LOGO;document.getElementById("brandTitle").textContent = db.brand.name;document.getElementById("brandSub").textContent = db.brand.sub;document.getElementById("brandNameInput").value = db.brand.name;document.getElementById("brandUrlInput").value = db.brand.logo.startsWith("data:") ? "" : db.brand.logo;document.getElementById("ageLimitInput").value = db.brand.minTeacherAge; } function computeRatings() { returndb.users.filter(u => u.role === "student").map(s => { const list = db.records.filter(r => r.studentId === s.id); const total = list.reduce((a, b) => a + Number(b.score), 0); const avg = list.length ? (total / list.length).toFixed(1) : "0.0"; constpresent = list.filter(r => r.att === "Keldi").length; return { id: s.id, name: s.name, total, avg, present }; }).sort((a, b) =>b.total - a.total); } function render() { paintBrand(); const u = currentUser(); const badge = document.getElementById("userBadge"); const logoutBtn = document.getElementById("logoutBtn");document.getElementById("authView").classList.add("hidden");document.getElementById("adminWorkspace").classList.add("hidden");document.getElementById("teacherWorkspace").classList.add("hidden");document.getElementById("studentWorkspace").classList.add("hidden"); if (!u) { badge.textContent = "Kirilmagan"; logoutBtn.classList.add("hidden"); document.getElementById("authView").classList.remove("hidden"); return; } logoutBtn.classList.remove("hidden"); if (isSoleAdmin(u)) { badge.textContent = `${u.name} • Yagona Admin`;document.getElementById("adminWorkspace").classList.remove("hidden"); renderAdmin(); } else if (u.role === "teacher") { badge.textContent = `${u.name} • Ustoz`;document.getElementById("teacherWorkspace").classList.remove("hidden"); renderTeacher(); } else { badge.textContent = `${u.name} • O‘quvchi`;document.getElementById("studentWorkspace").classList.remove("hidden"); renderStudent(u); } } functionrenderAdmin() { if (!isSoleAdmin(currentUser())) return notify("Ruxsat yo‘q: Admin panel faqat yagona Admin uchun.", true); const students = db.users.filter(x => x.role === "student"); const teachers = db.users.filter(x => x.role === "teacher"); document.getElementById("adminStats").innerHTML = ` <div class="stat"><div>Ustozlar</div><div class="stat-num">${teachers.length}</div></div> <div class="stat"><div>O‘quvchilar</div><div class="stat-num">${students.length}</div></div> <div class="stat"><div>Baholar</div><div class="stat-num">${db.records.length}</div></div> <div class="stat"><div>Yosh chegarasi</div><div class="stat-num">${db.brand.minTeacherAge}+</div></div> ; document.getElementById("usersTbody").innerHTML = db.users.map(x =>  <tr> <td>${x.name}</td> <td><code>${x.user}</code></td> <td>${x.year} (${ageOf(x.year)}yosh)</td> <td><span class="tag">${isSoleAdmin(x) ? "Yagona Admin" : x.role === "teacher" ? "Ustoz" : "O‘quvchi"}</span></td> <td>${isSoleAdmin(x) ?
-[24/11/26 11:09] . .: `<span class="tag">Himoyalangan</span> : <button class="btn-err" onclick="removeUser('${x.id}')">O‘chirish</button>}</td> </tr> ).join("");document.getElementById("recStudent").innerHTML = students.map(s => `<option value="${s.id}">${s.name}</option>).join(""); const ranks = computeRatings(); document.getElementById("ratingTbody").innerHTML = ranks.map((r, i) =>  <tr><td><b>#${i + 1}</b></td><td>${r.name}</td><td>${r.total} (o‘rt: ${r.avg})</td><td>${r.present}</td></tr> ).join(""); document.getElementById("recordsTbody").innerHTML = db.records.slice().reverse().map(rec => { const st = db.users.find(x => x.id === rec.studentId); return <tr><td>${st ? st.name : "-"}</td><td>${rec.subject}</td><td><b>${rec.score}</b></td><td><span class="tag ${rec.att === "Keldi"? "tag-ok" : "tag-err"}">${rec.att}</span></td></tr>; }).join(""); } function renderTeacher() { const students = db.users.filter(x => x.role === "student"); document.getElementById("tgStudent").innerHTML = students.map(s =><option value="${s.id}">${s.name}</option>).join(""); } function renderStudent(u) { const mine = db.records.filter(r=> r.studentId === u.id); const total = mine.reduce((a, b) => a + Number(b.score), 0); const avg = mine.length ? (total / mine.length).toFixed(1) : "0.0"; const present = mine.filter(r => r.att === "Keldi").length; const ranks = computeRatings(); const idx = ranks.findIndex(r => r.id === u.id);document.getElementById("studentSummary").innerHTML =  <div class="stat"><div>Reyting</div><div class="stat-num">${idx >= 0 ? `#${idx + 1} : "-"}</div></div> <div class="stat"><div>Umumiy ball</div><div class="stat-num">${total}</div></div> <div class="stat"><div>O‘rtacha</div><div class="stat-num">${avg}</div></div> <div class="stat"><div>Keldi</div><div class="stat-num">${present}</div></div> ;document.getElementById("myGradesTbody").innerHTML = mine.length ? mine.slice().reverse().map(r => `<tr><td>${r.subject}</td><td><b>${r.score}</b></td><td><span class="tag ${r.att === "Keldi" ? "tag-ok" : "tag-err"}">${r.att}</span></td><td>${r.date}</td></tr>).join("") : <tr><td colspan="4">Hali baho yo‘q</td></tr>;document.getElementById("studentBoardTbody").innerHTML = ranks.map((r, i) =>  <tr><td><b>#${i + 1}</b></td><td>${r.name}</td><td>${r.total}</td><td>${r.present}</td></tr> ).join(""); } window.removeUser = function(id) {if (!isSoleAdmin(currentUser())) return notify("Faqat yagona Admin o‘chira oladi.", true); if (id === SOLE_ADMIN_ID) return notify("Yagona Admin hisobini o‘chirib bo‘lmaydi.", true); db.users = db.users.filter(x =>x.id !== id); db.records = db.records.filter(r => r.studentId !== id); persist(); renderAdmin(); notify("Foydalanuvchi o‘chirildi."); }; document.querySelectorAll(".tab-btn").forEach(btn => { btn.addEventListener("click", () => { if(!isSoleAdmin(currentUser())) return notify("Faqat yagona Admin uchun.", true); document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); ["tabUsers", "tabGrades", "tabBrand"].forEach(id => document.getElementById(id).classList.add("hidden"));document.getElementById(btn.dataset.tab).classList.remove("hidden"); }); });document.getElementById("loginForm").addEventListener("submit", e => { e.preventDefault(); const user = document.getElementById("loginUser").value.trim(); const pass = document.getElementById("loginPass").value; constfound = db.users.find(x => x.user === user && x.pass === pass); if (!found) return notify("Login yoki parol xato.", true); db.sessionId = found.id; persist(); render(); notify(`Xush kelibsiz, ${found.name}!); });document.getElementById("logoutBtn").addEventListener("click", () => { db.sessionId = null; persist(); render(); });document.getElementById("regForm").addEventListener("submit", e => { e.preventDefault(); const name = document.getElementById("regName").value.trim(); const year = Number(document.getElementById("regYear").value); let role = document.getElementById("regRole").value === "teacher" ?
-[24/11/26 11:09] . .: "teacher" : "student"; const user = document.getElementById("regUser").value.trim(); const pass = document.getElementById("regPass").value; if (db.users.some(x => x.user === user)) return notify("Bu login band.", true); const age = ageOf(year); if (role === "teacher" && age < db.brand.minTeacherAge) { return notify(Ustoz yoshi kamida ${db.brand.minTeacherAge} bo‘lishi kerak (${age} yosh)., true); } if (age < db.brand.minTeacherAge) role = "student"; const created = { id: String(Date.now()), name, year, role, user, pass }; db.users.push(created); db.sessionId = created.id; persist(); e.target.reset(); render(); notify("Ro‘yxatdan o‘tildi!"); });document.getElementById("saveAgeBtn").addEventListener("click", () => { if (!isSoleAdmin(currentUser())) returnnotify("Faqat yagona Admin o‘zgartira oladi.", true); const val = Number(document.getElementById("ageLimitInput").value); if (val < 15 || val > 80) return notify("15-80 oralig‘ida yosh kiriting.", true); db.brand.minTeacherAge = val; persist(); renderAdmin(); notify("Yosh chegarasi yangilandi."); }); document.getElementById("createUserForm").addEventListener("submit", e => { e.preventDefault(); if(!isSoleAdmin(currentUser())) return notify("Faqat yagona Admin qo‘sha oladi.", true); const name = document.getElementById("newUName").value.trim(); const year = Number(document.getElementById("newUYear").value); const role = document.getElementById("newURole").value === "teacher" ? "teacher" : "student"; const user = document.getElementById("newUUser").value.trim(); const pass = document.getElementById("newUPass").value; if (db.users.some(x => x.user === user)) return notify("Login band.", true); if (role === "teacher" && ageOf(year) < db.brand.minTeacherAge) { return notify(Ustoz yoshi kamida ${db.brand.minTeacherAge} bo‘lishi kerak., true); } db.users.push({ id: String(Date.now()), name, year, role, user, pass }); persist(); e.target.reset(); renderAdmin(); notify("Foydalanuvchi qo‘shildi."); }); functionpushRecord(studentId, subject, score, att) { if (!studentId) return notify("O‘quvchi tanlang.", true); db.records.push({ id: String(Date.now()), studentId, subject, score: Number(score), att, date: new Date().toISOString().slice(0, 10) }); persist(); notify("Baho va davomat saqlandi."); }document.getElementById("addRecordForm").addEventListener("submit", e => { e.preventDefault(); if(!isSoleAdmin(currentUser())) return notify("Ruxsat yo‘q.", true); pushRecord(document.getElementById("recStudent").value, document.getElementById("recSubject").value.trim(),document.getElementById("recScore").value, document.getElementById("recAtt").value ); e.target.reset(); renderAdmin(); }); document.getElementById("tAddStudentForm").addEventListener("submit", e => { e.preventDefault(); const name = document.getElementById("tsName").value.trim(); const year = Number(document.getElementById("tsYear").value); const user = document.getElementById("tsUser").value.trim();const pass = document.getElementById("tsPass").value; if (db.users.some(x => x.user === user)) return notify("Login band.", true); db.users.push({ id: String(Date.now()), name, year, role: "student", user, pass }); persist(); e.target.reset(); renderTeacher(); notify("O‘quvchi qo‘shildi."); });document.getElementById("tGradeForm").addEventListener("submit", e => { e.preventDefault(); pushRecord(document.getElementById("tgStudent").value, document.getElementById("tgSubject").value.trim(),document.getElementById("tgScore").value, document.getElementById("tgAtt").value ); e.target.reset(); renderTeacher(); }); document.getElementById("brandFileInput").addEventListener("change", e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = () => { document.getElementById("brandUrlInput").value = r.result; }; r.readAsDataURL(f); });document.getElementById("saveBrandBtn").addEventListener("click", () => { if (!isSoleAdmin(currentUser())) returnnotify("Faqat yagona Admin o‘zgartira oladi.", true); const n = document.getElementById("brandNameInput").value.trim();
-[24/11/26 11:09] . .: const l = document.getElementById("brandUrlInput").value.trim(); if (n) db.brand.name = n; if (l) db.brand.logo = l; persist(); paintBrand(); notify("Logo va markaz nomi saqlandi."); });document.getElementById("resetBrandBtn").addEventListener("click", () => { if (!isSoleAdmin(currentUser())) returnnotify("Faqat yagona Admin o‘zgartira oladi.", true); db.brand.name = "Markaz Admin Tizimi"; db.brand.logo = DEF_LOGO; persist(); paintBrand(); notify("Standart logo qaytarildi."); }); render(); </script> </body> </html>
-[24/11/26 11:38] Hadicha: <!DOCTYPE html>
+[24/11/26 12:07] Hadicha: <!DOCTYPE html>
 <html lang="uz">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dosanov Academy — Boshqaruv Tizimi</title>
+  <title>Baho va Davomat Tizimi</title>
   <style>
     :root {
-      --bg: #0b1120;
-      --panel: #111827;
-      --panel-2: #1e293b;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --accent: #38bdf8;
-      --ok: #22c55e;
-      --warn: #f59e0b;
-      --err: #ef4444;
-      --line: rgba(148, 163, 184, 0.18);
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --border: #e2e8f0;
+      --success-bg: #dcfce7;
+      --success-text: #166534;
+      --danger-bg: #fee2e2;
+      --danger-text: #991b1b;
+      --radius: 14px;
+      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, sans-serif; }
-    body { background: var(--bg); color: var(--text); min-height: 100vh; }
-    .topbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 22px; background: var(--panel); border-bottom: 1px solid var(--line); }
-    .brand { display: flex; align-items: center; gap: 12px; }
-    .brand img { width: 42px; height: 42px; border-radius: 10px; object-fit: cover; border: 1px solid var(--line); background: #0284c7; }
-    .brand-title { font-size: 17px; font-weight: 700; }
-    .brand-sub { font-size: 12px; color: var(--muted); }
-    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
-    input, select, button { border-radius: 9px; border: 1px solid var(--line); background: var(--panel-2); color: var(--text); padding: 9px 12px; font-size: 14px; }
-    button { cursor: pointer; font-weight: 600; transition: 0.15s ease; }
-    button:hover { opacity: 0.92; }
-    .btn-sky { background: var(--accent); color: #041c2c; border: none; }
-    .btn-ok { background: var(--ok); color: #052e16; border: none; }
-    .btn-warn { background: var(--warn); color: #1f1300; border: none; }
-    .btn-err { background: var(--err); color: #fff; border: none; }
-    .wrap { max-width: 1180px; margin: 22px auto; padding: 0 16px; }
-    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px; margin-bottom: 16px; }
-    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 11px; }
-    label { font-size: 12px; color: var(--muted); }
-    h2 { font-size: 18px; margin-bottom: 8px; }
-    h3 { font-size: 15px; color: var(--accent); margin-bottom: 10px; }
-    p.hint { font-size: 13px; color: var(--muted); margin-bottom: 12px; line-height: 1.45; }
-    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
-    .tab-btn.active { background: var(--accent); color: #041c2c; border: none; }
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(165px, 1fr)); gap: 10px; margin-bottom: 14px; }
-    .stat { background: var(--panel-2); border: 1px solid var(--line); border-radius: 11px; padding: 12px; }
-    .stat-num { font-size: 21px; font-weight: 700; margin-top: 4px; }
-    table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 8px; }
-    th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); font-size: 12px; }
-    .tag { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(56,189,248,0.15); color: var(--accent); }
-    .tag-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
-    .tag-err { background: rgba(239,68,68,0.15); color: #f87171; }
-    .toast { padding: 10px 14px; border-radius: 10px; margin-bottom: 14px; font-size: 13px; }
-    .toast-ok { background: rgba(34,197,94,0.14); border: 1px solid rgba(34,197,94,0.4); }
-    .toast-err { background: rgba(239,68,68,0.14); border: 1px solid rgba(239,68,68,0.4); }
-    .hidden { display: none !important; }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 20px 14px 48px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid var(--border);
+      background: #eff6ff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .brand-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .brand-sub {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--success-bg);
+      color: var(--success-text);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 20px;
+    }
+
+    .grid-2 .card {
+      margin-bottom: 0;
+    }
+
+    h2, h3 {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    .field {
+      margin-bottom: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.05s;
+    }
+
+    .btn:active {
+      transform: scale(0.99);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-danger {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 8px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+[24/11/26 12:07] Hadicha: table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    .pill-keldi {
+      background: var(--success-bg);
+      color: var(--success-text);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .pill-kelmadi {
+      background: var(--danger-bg);
+      color: var(--danger-text);
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-size: 14px;
+      padding: 8px 0;
+    }
   </style>
 </head>
 <body>
-  <header class="topbar">
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <img id="logoPreview" class="brand-logo" alt="Logo" style="display:none;" />
+        <div id="logoFallback" class="brand-logo">DA</div>
+        <div>
+          <div id="centerTitle" class="brand-title">O‘quv Markazi</div>
+          <div class="brand-sub">Baho va davomat boshqaruv paneli</div>
+        </div>
+      </div>
+      <div class="status-badge">Onlayn ✓</div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h2>Baho va davomat yozish (10 ballik tizim)</h2>
+        <form id="gradeForm">
+          <div class="field">
+            <label for="studentName">O‘quvchi</label>
+            <input type="text" id="studentName" list="studentsList" placeholder="Masalan: Ali Valiyev" required />
+            <datalist id="studentsList"></datalist>
+          </div>
+
+          <div class="field">
+            <label for="subjectName">Fan / mavzu</label>
+            <input type="text" id="subjectName" placeholder="Ingliz tili / Matematika" required />
+          </div>
+
+          <div class="field">
+            <label for="scoreInput">Baho (1 dan 10 gacha)</label>
+            <input type="number" id="scoreInput" min="1" max="10" placeholder="1 - 10" required />
+          </div>
+
+          <div class="field">
+            <label for="attendanceSelect">Davomat</label>
+            <select id="attendanceSelect">
+              <option value="Keldi">Keldi</option>
+              <option value="Kelmadi">Kelmadi</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Saqlash</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>Markaz sozlamalari</h2>
+        <div class="field">
+          <label for="brandNameInput">Markaz nomi</label>
+          <input type="text" id="brandNameInput" placeholder="Markaz nomini kiriting" />
+        </div>
+
+        <div class="field">
+          <label for="brandUrlInput">Logo URL yoki fayl</label>
+          <input type="text" id="brandUrlInput" placeholder="https://..." />
+        </div>
+
+        <div class="field">
+          <label for="brandFileInput">Yoki rasm fayl tanlang</label>
+          <input type="file" id="brandFileInput" accept="image/*" />
+        </div>
+
+        <button type="button" id="saveBrandBtn" class="btn btn-primary">Logoni va nomni saqlash</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Umumiy o‘quvchilar reytingi</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>O‘quvchi</th>
+              <th>Jami</th>
+              <th>O‘rtacha (10)</th>
+              <th>Keldi</th>
+            </tr>
+          </thead>
+          <tbody id="ratingBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Barcha baholar</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+[24/11/26 12:07] Hadicha: <tr>
+              <th>O‘quvchi</th>
+              <th>Fan</th>
+              <th>Baho (10)</th>
+              <th>Davomat</th>
+              <th>Amal</th>
+            </tr>
+          </thead>
+          <tbody id="gradesBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_GRADES = "dosanov_grades_v1";
+    const STORAGE_BRAND = "dosanov_brand_v1";
+
+    let grades = JSON.parse(localStorage.getItem(STORAGE_GRADES) || "[]");
+    let brand = JSON.parse(localStorage.getItem(STORAGE_BRAND) || '{"name":"O‘quv Markazi","logo":""}');
+
+    const centerTitle = document.getElementById("centerTitle");
+    const brandNameInput = document.getElementById("brandNameInput");
+    const brandUrlInput = document.getElementById("brandUrlInput");
+    const brandFileInput = document.getElementById("brandFileInput");
+    const logoPreview = document.getElementById("logoPreview");
+    const logoFallback = document.getElementById("logoFallback");
+    const saveBrandBtn = document.getElementById("saveBrandBtn");
+
+    const gradeForm = document.getElementById("gradeForm");
+    const studentNameInput = document.getElementById("studentName");
+    const subjectNameInput = document.getElementById("subjectName");
+    const scoreInput = document.getElementById("scoreInput");
+    const attendanceSelect = document.getElementById("attendanceSelect");
+    const ratingBody = document.getElementById("ratingBody");
+    const gradesBody = document.getElementById("gradesBody");
+    const studentsList = document.getElementById("studentsList");
+
+    function renderBrand() {
+      const name = brand.name || "O‘quv Markazi";
+      centerTitle.textContent = name;
+      brandNameInput.value = name;
+      brandUrlInput.value = brand.logo && !brand.logo.startsWith("data:") ? brand.logo : "";
+
+      if (brand.logo) {
+        logoPreview.src = brand.logo;
+        logoPreview.style.display = "block";
+        logoFallback.style.display = "none";
+      } else {
+        logoPreview.style.display = "none";
+        logoFallback.style.display = "flex";
+        logoFallback.textContent = name.slice(0, 2).toUpperCase();
+      }
+    }
+
+    brandFileInput.addEventListener("change", (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        brand.logo = reader.result;
+        localStorage.setItem(STORAGE_BRAND, JSON.stringify(brand));
+        renderBrand();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    saveBrandBtn.addEventListener("click", () => {
+      const newName = brandNameInput.value.trim() || "O‘quv Markazi";
+      const newUrl = brandUrlInput.value.trim();
+      brand.name = newName;
+      if (newUrl) {
+        brand.logo = newUrl;
+      }
+      localStorage.setItem(STORAGE_BRAND, JSON.stringify(brand));
+      renderBrand();
+    });
+
+    function renderAll() {
+      localStorage.setItem(STORAGE_GRADES, JSON.stringify(grades));
+
+      const uniqueStudents = [...new Set(grades.map(g => g.student))];
+      studentsList.innerHTML = uniqueStudents.map(s => <option value="${escapeHtml(s)}"></option>).join("");
+
+      if (grades.length === 0) {
+        ratingBody.innerHTML = <tr><td colspan="5" class="empty">Hali ma’lumot kiritilmagan.</td></tr>;
+        gradesBody.innerHTML = <tr><td colspan="5" class="empty">Hali baholar yo‘q.</td></tr>;
+        return;
+      }
+
+      const statsMap = {};
+      for (const item of grades) {
+        if (!statsMap[item.student]) {
+          statsMap[item.student] = { student: item.student, total: 0, count: 0, present: 0 };
+        }
+        statsMap[item.student].total += Number(item.score);
+        statsMap[item.student].count += 1;
+        if (item.attendance === "Keldi") statsMap[item.student].present += 1;
+      }
+[24/11/26 12:07] Hadicha: const ranked = Object.values(statsMap).sort((a, b) => (b.total / b.count) - (a.total / a.count));
+      ratingBody.innerHTML = ranked.map((r, idx) => {
+        const avg = (r.total / r.count).toFixed(1);
+        return 
+          <tr>
+            <td>${idx + 1}</td>
+            <td><strong>${escapeHtml(r.student)}</strong></td>
+            <td>${r.total}</td>
+            <td>${avg}</td>
+            <td>${r.present}</td>
+          </tr>
+        ;
+      }).join("");
+
+      gradesBody.innerHTML = grades.map((g, index) => {
+        const badgeClass = g.attendance === "Keldi" ? "pill-keldi" : "pill-kelmadi";
+        return 
+          <tr>
+            <td>${escapeHtml(g.student)}</td>
+            <td>${escapeHtml(g.subject)}</td>
+            <td><strong>${g.score}</strong></td>
+            <td><span class="${badgeClass}">${escapeHtml(g.attendance)}</span></td>
+            <td><button class="btn btn-danger" onclick="deleteGrade(${index})">O‘chirish</button></td>
+          </tr>
+        ;
+      }).join("");
+    }
+
+    gradeForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const student = studentNameInput.value.trim();
+      const subject = subjectNameInput.value.trim();
+      const score = Number(scoreInput.value);
+      const attendance = attendanceSelect.value;
+
+      if (!student  !subject  score < 1 || score > 10) return;
+
+      grades.unshift({ student, subject, score, attendance });
+      renderAll();
+
+      subjectNameInput.value = "";
+      scoreInput.value = "";
+    });
+
+    window.deleteGrade = function(index) {
+      grades.splice(index, 1);
+      renderAll();
+    };
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    renderBrand();
+    renderAll();
+  </script>
+</body>
+</html>
