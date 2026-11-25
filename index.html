@@ -1,490 +1,89 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Baho va Davomat Tizimi</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dosanov Academy | Boshqaruv Tizimi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #64748b;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --border: #e2e8f0;
-      --success-bg: #dcfce7;
-      --success-text: #166534;
-      --danger-bg: #fee2e2;
-      --danger-text: #991b1b;
-      --radius: 14px;
-      --shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.06), 0 4px 10px -2px rgba(15, 23, 42, 0.04);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      padding: 20px 14px 48px;
-    }
-
-    .container {
-      max-width: 1040px;
-      margin: 0 auto;
-    }
-
-    .topbar {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 20px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .brand-logo {
-      width: 46px;
-      height: 46px;
-      border-radius: 12px;
-      object-fit: cover;
-      border: 1px solid var(--border);
-      background: #eff6ff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .brand-title {
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .brand-sub {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--success-bg);
-      color: var(--success-text);
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 18px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      margin-bottom: 20px;
-    }
-
-    .grid-2 .card {
-      margin-bottom: 0;
-    }
-
-    h2, h3 {
-      font-size: 16px;
-      font-weight: 700;
-      margin-bottom: 14px;
-    }
-
-    .field {
-      margin-bottom: 12px;
-    }
-
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #334155;
-      margin-bottom: 5px;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px 12px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      font-size: 14px;
-      color: var(--text);
-      background: #fff;
-      outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
-    }
-
-    input:focus, select:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.05s;
-    }
-
-    .btn:active {
-      transform: scale(0.99);
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: #fff;
-      width: 100%;
-    }
-
-    .btn-primary:hover {
-      background: var(--primary-hover);
-    }
-
-    .btn-danger {
-      background: var(--danger-bg);
-      color: var(--danger-text);
-      padding: 5px 10px;
-      font-size: 12px;
-      border-radius: 8px;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-    }
-[24/11/26 12:07] Hadicha: table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
-    }
-
-    th, td {
-      padding: 10px 12px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      white-space: nowrap;
-    }
-
-    th {
-      background: #f8fafc;
-      color: #475569;
-      font-weight: 600;
-      font-size: 13px;
-    }
-
-    .pill-keldi {
-      background: var(--success-bg);
-      color: var(--success-text);
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .pill-kelmadi {
-      background: var(--danger-bg);
-      color: var(--danger-text);
-      padding: 3px 8px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .empty {
-      color: var(--muted);
-      font-size: 14px;
-      padding: 8px 0;
-    }
+    :root{--bg:#090d18;--panel:#111827;--panel2:#151e2e;--line:#253147;--text:#edf2f7;--muted:#94a3b8;--green:#39d98a;--blue:#5b8cff;--red:#fb7185;--yellow:#fbbf24}
+    *{box-sizing:border-box} body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--text)} button,input,select{font:inherit}.hidden{display:none!important}
+    .login{min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 15% 10%,rgba(91,140,255,.13),transparent 30%),radial-gradient(circle at 85% 90%,rgba(57,217,138,.08),transparent 28%),var(--bg)}
+    .login-card{width:min(420px,100%);padding:38px;border:1px solid var(--line);border-radius:24px;background:rgba(17,24,39,.94);box-shadow:0 24px 80px #0008}.brand-logo{width:82px;height:82px;margin:0 auto 16px;border-radius:22px;background:linear-gradient(145deg,#17243b,#0b1220);border:1px solid #435371;display:grid;place-items:center;overflow:hidden}.brand-logo img{width:100%;height:100%;object-fit:cover}.brand-logo span{font-weight:800;font-size:24px;color:white}.login h1{text-align:center;margin:0;font-size:27px}.login h1 em{font-style:normal;color:var(--green)}.login-sub{text-align:center;color:var(--muted);font-size:13px;margin:8px 0 28px}.field{margin-bottom:16px}.field label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin:0 0 7px}.field input,.field select{width:100%;height:48px;border:1px solid var(--line);border-radius:12px;background:#0b1120;color:white;padding:0 14px;outline:none}.field input:focus,.field select:focus{border-color:var(--blue);box-shadow:0 0 0 3px #5b8cff20}.password-wrap{position:relative}.password-wrap input{padding-right:48px}.eye{position:absolute;right:12px;top:12px;border:0;background:none;color:var(--muted);cursor:pointer}.submit{width:100%;height:50px;border:0;border-radius:12px;background:var(--green);color:#06150d;font-weight:800;cursor:pointer}.phone{display:block;text-align:center;color:var(--muted);font-size:13px;text-decoration:none;margin-top:20px}.demo{margin-top:14px;text-align:center;color:#718096;font-size:11px}
+    .app{min-height:100vh;display:flex}.sidebar{width:248px;position:fixed;inset:0 auto 0 0;background:#0e1523;border-right:1px solid var(--line);padding:20px 14px;display:flex;flex-direction:column;z-index:20}.side-brand{display:flex;align-items:center;gap:10px;padding:4px 8px 20px;border-bottom:1px solid var(--line)}.side-logo{width:44px;height:44px;border-radius:12px;background:#17243b;border:1px solid #435371;display:grid;place-items:center;font-weight:800}.nav{display:flex;flex-direction:column;gap:5px;margin-top:18px}.nav button{border:0;background:transparent;color:var(--muted);border-radius:11px;padding:12px 13px;text-align:left;cursor:pointer}.nav button i{width:24px}.nav button.active{background:#39d98a18;color:var(--green)}.logout{margin-top:auto;border:1px solid #fb718536;background:#fb718510;color:var(--red);height:43px;border-radius:11px;cursor:pointer}.main{margin-left:248px;width:calc(100% - 248px);padding:28px}.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}.topbar h2{margin:0;font-size:24px}.topbar p{margin:5px 0 0;color:var(--muted);font-size:13px}.date{padding:9px 12px;border:1px solid var(--line);border-radius:10px;color:var(--muted);font-size:12px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:16px}.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}.card-label{color:var(--muted);font-size:12px}.card-value{font-size:27px;font-weight:800;margin-top:8px}.green{color:var(--green)}.red{color:var(--red)}.blue{color:var(--blue)}.yellow{color:var(--yellow)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.toolbar{display:flex;gap:10px;align-items:end;margin-bottom:14px}.toolbar .field{margin:0}.table-wrap{overflow:auto}.table-wrap table{width:100%;border-collapse:collapse}.table-wrap th,.table-wrap td{padding:12px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}.table-wrap th{color:var(--muted);font-size:11px;text-transform:uppercase}.badge{display:inline-block;padding:5px 9px;border-radius:999px;font-size:11px;font-weight:700}.badge.green{background:#39d98a18}.badge.red{background:#fb718518}.btn{border:0;border-radius:9px;padding:9px 12px;cursor:pointer;font-weight:700;font-size:12px}.btn-primary{background:var(--green);color:#07130d}.btn-blue{background:var(--blue);color:white}.btn-danger{background:#fb718518;color:var(--red)}.form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.toast{position:fixed;right:20px;top:20px;padding:13px 16px;border-radius:11px;background:#172033;border:1px solid var(--line);box-shadow:0 12px 40px #0008;z-index:99;font-size:13px}.mobile-menu{display:none}.modal-bg{position:fixed;inset:0;background:#000a;z-index:50;display:grid;place-items:center;padding:20px}.modal{width:min(430px,100%);background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+    @media(max-width:900px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.sidebar{transform:translateX(-100%);transition:.2s}.sidebar.open{transform:translateX(0)}.main{margin-left:0;width:100%;padding:20px}.mobile-menu{display:block;border:1px solid var(--line);background:var(--panel);color:white;border-radius:9px;width:40px;height:40px}.topbar h2{font-size:20px}}
+    @media(max-width:560px){.cards{grid-template-columns:1fr}.form-grid{grid-template-columns:1fr}.login-card{padding:28px 20px}.main{padding:14px}.date{display:none}}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="topbar">
-      <div class="brand">
-        <img id="logoPreview" class="brand-logo" alt="Logo" style="display:none;" />
-        <div id="logoFallback" class="brand-logo">DA</div>
-        <div>
-          <div id="centerTitle" class="brand-title">O‘quv Markazi</div>
-          <div class="brand-sub">Baho va davomat boshqaruv paneli</div>
-        </div>
-      </div>
-      <div class="status-badge">Onlayn ✓</div>
-    </div>
-
-    <div class="grid-2">
-      <div class="card">
-        <h2>Baho va davomat yozish (10 ballik tizim)</h2>
-        <form id="gradeForm">
-          <div class="field">
-            <label for="studentName">O‘quvchi</label>
-            <input type="text" id="studentName" list="studentsList" placeholder="Masalan: Ali Valiyev" required />
-            <datalist id="studentsList"></datalist>
-          </div>
-
-          <div class="field">
-            <label for="subjectName">Fan / mavzu</label>
-            <input type="text" id="subjectName" placeholder="Ingliz tili / Matematika" required />
-          </div>
-
-          <div class="field">
-            <label for="scoreInput">Baho (1 dan 10 gacha)</label>
-            <input type="number" id="scoreInput" min="1" max="10" placeholder="1 - 10" required />
-          </div>
-
-          <div class="field">
-            <label for="attendanceSelect">Davomat</label>
-            <select id="attendanceSelect">
-              <option value="Keldi">Keldi</option>
-              <option value="Kelmadi">Kelmadi</option>
-            </select>
-          </div>
-
-          <button type="submit" class="btn btn-primary">Saqlash</button>
-        </form>
-      </div>
-
-      <div class="card">
-        <h2>Markaz sozlamalari</h2>
-        <div class="field">
-          <label for="brandNameInput">Markaz nomi</label>
-          <input type="text" id="brandNameInput" placeholder="Markaz nomini kiriting" />
-        </div>
-
-        <div class="field">
-          <label for="brandUrlInput">Logo URL yoki fayl</label>
-          <input type="text" id="brandUrlInput" placeholder="https://..." />
-        </div>
-
-        <div class="field">
-          <label for="brandFileInput">Yoki rasm fayl tanlang</label>
-          <input type="file" id="brandFileInput" accept="image/*" />
-        </div>
-
-        <button type="button" id="saveBrandBtn" class="btn btn-primary">Logoni va nomni saqlash</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Umumiy o‘quvchilar reytingi</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>O‘quvchi</th>
-              <th>Jami</th>
-              <th>O‘rtacha (10)</th>
-              <th>Keldi</th>
-            </tr>
-          </thead>
-          <tbody id="ratingBody"></tbody>
-        </table>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Barcha baholar</h3>
-      <div class="table-wrap">
-        <table>
-          <thead>
-[24/11/26 12:07] Hadicha: <tr>
-              <th>O‘quvchi</th>
-              <th>Fan</th>
-              <th>Baho (10)</th>
-              <th>Davomat</th>
-              <th>Amal</th>
-            </tr>
-          </thead>
-          <tbody id="gradesBody"></tbody>
-        </table>
-      </div>
+  <div id="login" class="login">
+    <div class="login-card">
+      <div class="brand-logo" id="loginLogo"><span>D</span></div>
+      <h1>DOSANOV <em>ACADEMY</em></h1>
+      <p class="login-sub">O‘quv markazi boshqaruv tizimi</p>
+      <form id="loginForm">
+        <div class="field"><label>LOGIN</label><input id="username" autocomplete="username" placeholder="Loginingizni kiriting" required></div>
+        <div class="field"><label>PAROL</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Parolingizni kiriting" required><button type="button" class="eye" onclick="togglePassword()"><i class="fa-solid fa-eye"></i></button></div></div>
+        <button class="submit">TIZIMGA KIRISH <i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+      <a class="phone" href="tel:+998901150502"><i class="fa-solid fa-phone green"></i> &nbsp;+998 90 115 05 02</a>
+      <div class="demo">Demo: <b>Ismoil</b> / <b>Ismoil1234</b></div>
     </div>
   </div>
 
-  <script>
-    const STORAGE_GRADES = "dosanov_grades_v1";
-    const STORAGE_BRAND = "dosanov_brand_v1";
+  <div id="app" class="app hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand"><div class="side-logo" id="sideLogo">D</div><div><b>DOSANOV</b> <b class="green">ACADEMY</b><br><small id="roleName" class="green">Direktor</small></div></div>
+      <nav class="nav" id="nav"></nav>
+      <button class="logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Tizimdan chiqish</button>
+    </aside>
+    <main class="main">
+      <div class="topbar"><div style="display:flex;align-items:center;gap:10px"><button class="mobile-menu" onclick="document.querySelector('.sidebar').classList.toggle('open')"><i class="fa-solid fa-bars"></i></button><div><h2 id="pageTitle">Boshqaruv Paneli</h2><p id="pageSub">Markaz statistikasi va boshqaruvi</p></div></div><div class="date" id="date"></div></div>
+      <div id="content"></div>
+    </main>
+  </div>
+  <div id="modalRoot"></div>
 
-    let grades = JSON.parse(localStorage.getItem(STORAGE_GRADES) || "[]");
-    let brand = JSON.parse(localStorage.getItem(STORAGE_BRAND) || '{"name":"O‘quv Markazi","logo":""}');
-
-    const centerTitle = document.getElementById("centerTitle");
-    const brandNameInput = document.getElementById("brandNameInput");
-    const brandUrlInput = document.getElementById("brandUrlInput");
-    const brandFileInput = document.getElementById("brandFileInput");
-    const logoPreview = document.getElementById("logoPreview");
-    const logoFallback = document.getElementById("logoFallback");
-    const saveBrandBtn = document.getElementById("saveBrandBtn");
-
-    const gradeForm = document.getElementById("gradeForm");
-    const studentNameInput = document.getElementById("studentName");
-    const subjectNameInput = document.getElementById("subjectName");
-    const scoreInput = document.getElementById("scoreInput");
-    const attendanceSelect = document.getElementById("attendanceSelect");
-    const ratingBody = document.getElementById("ratingBody");
-    const gradesBody = document.getElementById("gradesBody");
-    const studentsList = document.getElementById("studentsList");
-
-    function renderBrand() {
-      const name = brand.name || "O‘quv Markazi";
-      centerTitle.textContent = name;
-      brandNameInput.value = name;
-      brandUrlInput.value = brand.logo && !brand.logo.startsWith("data:") ? brand.logo : "";
-
-      if (brand.logo) {
-        logoPreview.src = brand.logo;
-        logoPreview.style.display = "block";
-        logoFallback.style.display = "none";
-      } else {
-        logoPreview.style.display = "none";
-        logoFallback.style.display = "flex";
-        logoFallback.textContent = name.slice(0, 2).toUpperCase();
-      }
-    }
-
-    brandFileInput.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        brand.logo = reader.result;
-        localStorage.setItem(STORAGE_BRAND, JSON.stringify(brand));
-        renderBrand();
-      };
-      reader.readAsDataURL(file);
-    });
-
-    saveBrandBtn.addEventListener("click", () => {
-      const newName = brandNameInput.value.trim() || "O‘quv Markazi";
-      const newUrl = brandUrlInput.value.trim();
-      brand.name = newName;
-      if (newUrl) {
-        brand.logo = newUrl;
-      }
-      localStorage.setItem(STORAGE_BRAND, JSON.stringify(brand));
-      renderBrand();
-    });
-
-    function renderAll() {
-      localStorage.setItem(STORAGE_GRADES, JSON.stringify(grades));
-
-      const uniqueStudents = [...new Set(grades.map(g => g.student))];
-      studentsList.innerHTML = uniqueStudents.map(s => <option value="${escapeHtml(s)}"></option>).join("");
-
-      if (grades.length === 0) {
-        ratingBody.innerHTML = <tr><td colspan="5" class="empty">Hali ma’lumot kiritilmagan.</td></tr>;
-        gradesBody.innerHTML = <tr><td colspan="5" class="empty">Hali baholar yo‘q.</td></tr>;
-        return;
-      }
-
-      const statsMap = {};
-      for (const item of grades) {
-        if (!statsMap[item.student]) {
-          statsMap[item.student] = { student: item.student, total: 0, count: 0, present: 0 };
-        }
-        statsMap[item.student].total += Number(item.score);
-        statsMap[item.student].count += 1;
-        if (item.attendance === "Keldi") statsMap[item.student].present += 1;
-      }
-[24/11/26 12:07] Hadicha: const ranked = Object.values(statsMap).sort((a, b) => (b.total / b.count) - (a.total / a.count));
-      ratingBody.innerHTML = ranked.map((r, idx) => {
-        const avg = (r.total / r.count).toFixed(1);
-        return 
-          <tr>
-            <td>${idx + 1}</td>
-            <td><strong>${escapeHtml(r.student)}</strong></td>
-            <td>${r.total}</td>
-            <td>${avg}</td>
-            <td>${r.present}</td>
-          </tr>
-        ;
-      }).join("");
-
-      gradesBody.innerHTML = grades.map((g, index) => {
-        const badgeClass = g.attendance === "Keldi" ? "pill-keldi" : "pill-kelmadi";
-        return 
-          <tr>
-            <td>${escapeHtml(g.student)}</td>
-            <td>${escapeHtml(g.subject)}</td>
-            <td><strong>${g.score}</strong></td>
-            <td><span class="${badgeClass}">${escapeHtml(g.attendance)}</span></td>
-            <td><button class="btn btn-danger" onclick="deleteGrade(${index})">O‘chirish</button></td>
-          </tr>
-        ;
-      }).join("");
-    }
-
-    gradeForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const student = studentNameInput.value.trim();
-      const subject = subjectNameInput.value.trim();
-      const score = Number(scoreInput.value);
-      const attendance = attendanceSelect.value;
-
-      if (!student  !subject  score < 1 || score > 10) return;
-
-      grades.unshift({ student, subject, score, attendance });
-      renderAll();
-
-      subjectNameInput.value = "";
-      scoreInput.value = "";
-    });
-
-    window.deleteGrade = function(index) {
-      grades.splice(index, 1);
-      renderAll();
-    };
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;");
-    }
-
-    renderBrand();
-    renderAll();
-  </script>
+<script>
+const KEY='dosanov_academy_elite_v1';
+const FEE=450000;
+const DEFAULT_DB={subjects:['Ingliz tili','Rus tili','Ona tili','Matematika','Tarix'],groups:[{id:'g1',name:'English-1',subject:'Ingliz tili',teacherId:'t1',schedule:'Du-Chor-Ju 14:00'},{id:'g2',name:'Russian-1',subject:'Rus tili',teacherId:'t2',schedule:'Se-Pay-Sha 15:30'},{id:'g3',name:'Matematika-1',subject:'Matematika',teacherId:'t3',schedule:'Du-Chor-Ju 16:30'}],users:[{id:'dir',name:'Ismoil',username:'Ismoil',password:'Ismoil1234',role:'direktor'},{id:'adm',name:'Madina Karimova',username:'madina',password:'Admin1234',role:'admin'},{id:'t1',name:'Azizbek Rasulov',username:'aziz',password:'Ustoz1234',role:'ustoz',subject:'Ingliz tili'},{id:'t2',name:'Zarina Tursunova',username:'zarina',password:'Ustoz1234',role:'ustoz',subject:'Rus tili'},{id:'t3',name:'Sardorbek Alimov',username:'sardor',password:'Ustoz1234',role:'ustoz',subject:'Matematika'},...['Jasurbek Olimov','Malika Abdullayeva','Diyorbek Xolmatov','Sevinch Saidova','Behruzbek Normatov'].map((name,i)=>({id:'s'+i,name,username:['jasur','malika','diyor','sevinch','behruz'][i]+'_st',password:'User1234',role:'oquvchi',groupId:i<2?'g1':i===2?'g2':i===3?'g3':'g1',paid:i!==1&&i!==4,grades:[{date:'2026-11-12',score:[94,86,91,98,78][i],topic:'Mavzuli nazorat'},{date:'2026-11-19',score:[96,88,89,95,82][i],topic:'Amaliy mashg‘ulot'}],attendance:[{date:'2026-11-12',status:i===1?'Kelmadi':'Keldi'},{date:'2026-11-19',status:i===4?'Kelmadi':'Keldi'}]}))]};
+let db,activeUser=null,activeTab='';
+try{db=JSON.parse(localStorage.getItem(KEY))||structuredClone(DEFAULT_DB)}catch(e){db=structuredClone(DEFAULT_DB)}
+const esc=s=>String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+function save(){localStorage.setItem(KEY,JSON.stringify(db))}
+function toast(msg){const el=document.createElement('div');el.className='toast';el.textContent=msg;document.body.appendChild(el);setTimeout(()=>el.remove(),2600)}
+function togglePassword(){const p=document.querySelector('#password');p.type=p.type==='password'?'text':'password'}
+document.querySelector('#loginForm').onsubmit=e=>{e.preventDefault();const u=db.users.find(x=>x.username===document.querySelector('#username').value.trim()&&x.password===document.querySelector('#password').value.trim());if(!u)return toast('Login yoki parol noto‘g‘ri!');activeUser=u;document.querySelector('#login').classList.add('hidden');document.querySelector('#app').classList.remove('hidden');document.querySelector('#roleName').textContent={direktor:'Direktor',admin:'Admin',ustoz:'Ustoz',oquvchi:'O‘quvchi'}[u.role];setupNav();toast('Xush kelibsiz, '+u.name+'!')};
+function logout(){activeUser=null;activeTab='';document.querySelector('#app').classList.add('hidden');document.querySelector('#login').classList.remove('hidden');document.querySelector('#password').value=''}
+function setupNav(){const menus={direktor:[['dashboard','Umumiy ko‘rsatkich','fa-chart-pie'],['groups','Fanlar va guruhlar','fa-layer-group'],['users','Foydalanuvchilar','fa-users'],['payments','To‘lovlar','fa-money-bill'],['ratings','Markaz reytingi','fa-trophy']],admin:[['students','O‘quvchilar','fa-user-graduate'],['payments','To‘lovlar','fa-money-bill'],['ratings','Reyting','fa-trophy']],ustoz:[['journal','Baho va davomat','fa-clipboard-check'],['ratings','Reyting','fa-trophy']],oquvchi:[['student','Mening natijalarim','fa-id-card'],['ratings','Reyting','fa-ranking-star']]};document.querySelector('#nav').innerHTML=menus[activeUser.role].map(x=>`<button data-tab="${x[0]}" onclick="switchTab('${x[0]}')"><i class="fa-solid ${x[2]}"></i>${x[1]}</button>`).join('');switchTab(menus[activeUser.role][0][0])}
+function switchTab(tab){activeTab=tab;document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));document.querySelector('.sidebar').classList.remove('open');render()}
+function groupName(id){const g=db.groups.find(x=>x.id===id);return g?g.name+' • '+g.subject:'Guruh biriktirilmagan'}
+function stats(u){const gs=u.grades||[],att=u.attendance||[];const avg=gs.length?gs.reduce((a,g)=>a+Number(g.score),0)/gs.length:0;const ar=att.length?att.filter(a=>a.status==='Keldi').length/att.length*100:100;return{avg:avg.toFixed(1),att:Math.round(ar),score:(avg*.8+ar*.2).toFixed(1)}}
+function rankStudents(groupId='all'){let us=db.users.filter(u=>u.role==='oquvchi');if(groupId!=='all')us=us.filter(u=>u.groupId===groupId);return us.map(u=>({...u,st:stats(u)})).sort((a,b)=>b.st.score-a.st.score)}
+function render(){const content=document.querySelector('#content'),title=document.querySelector('#pageTitle'),sub=document.querySelector('#pageSub');document.querySelector('#date').textContent=new Date().toLocaleDateString('uz-UZ',{year:'numeric',month:'long',day:'numeric'});if(activeTab==='dashboard'){title.textContent='Direktor Paneli';sub.textContent='Markazning umumiy holati';content.innerHTML=dashboard()}else if(activeTab==='groups'){title.textContent='Fanlar va guruhlar';sub.textContent='Guruhlarni boshqarish';content.innerHTML=groups()}else if(activeTab==='users'){title.textContent='Foydalanuvchilar';sub.textContent='Login va rollarni boshqarish';content.innerHTML=users()}else if(activeTab==='payments'){title.textContent='To‘lov nazorati';sub.textContent='Oylik to‘lov: '+FEE.toLocaleString('uz-UZ')+' so‘m';content.innerHTML=payments()}else if(activeTab==='ratings'){title.textContent='O‘quvchilar reytingi';sub.textContent='Baho va davomat asosida tartiblash';content.innerHTML=ratings()}else if(activeTab==='students'){title.textContent='O‘quvchilar ro‘yxati';sub.textContent='Guruh va to‘lov holati';content.innerHTML=students()}else if(activeTab==='journal'){title.textContent='Baho va davomat jurnali';sub.textContent='Sizga biriktirilgan guruhlar';content.innerHTML=journal()}else if(activeTab==='student'){title.textContent='Mening natijalarim';sub.text='O‘quvchi kabineti';content.innerHTML=studentView()}}
+function cards(items){return '<div class="cards">'+items.map(i=>`<div class="card"><div class="card-label">${i.label}</div><div class="card-value ${i.color||''}">${i.value}</div></div>`).join('')+'</div>'}
+function dashboard(){const us=db.users.filter(u=>u.role==='oquvchi'),paid=us.filter(u=>u.paid).length;return cards([{label:'JAMI O‘QUVCHILAR',value:us.length+' ta',color:'blue'},{label:'TO‘LANGAN',value:paid+' ta',color:'green'},{label:'QARZ',value:(us.length-paid)+' ta',color:'red'},{label:'JAMI TUSHUM',value:(paid*FEE/1000000).toFixed(2)+' mln',color:'yellow'}])+'<div class="grid"><div class="card"><h3>To‘lov holati</h3>'+paymentRows(us)+'</div><div class="card"><h3>Guruhlar</h3>'+db.groups.map(g=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line)"><b>${esc(g.name)}</b><span class="badge green">${db.users.filter(u=>u.groupId===g.id).length} o‘quvchi</span></div>`).join('')+'</div></div>'}
+function paymentRows(us){return '<div class="table-wrap"><table><tr><th>O‘quvchi</th><th>Holat</th></tr>'+us.map(u=>`<tr><td>${esc(u.name)}</td><td><span class="badge ${u.paid?'green':'red'}">${u.paid?'To‘langan':'To‘lanmagan'}</span></td></tr>`).join('')+'</table></div>'}
+function groups(){return `<div class="card"><h3>Yangi guruh</h3><div class="form-grid"><div class="field"><label>Guruh nomi</label><input id="gn" placeholder="English-2"></div><div class="field"><label>Fan</label><select id="gs">${db.subjects.map(s=>`<option>${esc(s)}</option>`).join('')}</select></div><div class="field"><label>Ustoz</label><select id="gt"><option value="">Tanlanmagan</option>${db.users.filter(u=>u.role==='ustoz').map(u=>`<option value="${u.id}">${esc(u.name)}</option>`).join('')}</select></div><div class="field"><label>Jadval</label><input id="gc" placeholder="Du-Chor-Ju 14:00"></div></div><button class="btn btn-primary" onclick="addGroup()">Guruh qo‘shish</button></div><div class="card"><div class="table-wrap"><table><tr><th>Guruh</th><th>Fan</th><th>Ustoz</th><th>Jadval</th><th>Amal</th></tr>${db.groups.map(g=>`<tr><td>${esc(g.name)}</td><td>${esc(g.subject)}</td><td>${esc(db.users.find(u=>u.id===g.teacherId)?.name||'-')}</td><td>${esc(g.schedule)}</td><td><button class="btn btn-danger" onclick="delGroup('${g.id}')">O‘chirish</button></td></tr>`).join('')}</table></div></div>`}
+function addGroup(){const name=gn.value.trim();if(!name)return toast('Guruh nomini kiriting');db.groups.push({id:'g'+Date.now(),name,subject:gs.value,teacherId:gt.value,schedule:gc.value.trim()||'-'});save();render();toast('Guruh qo‘shildi')}
+function delGroup(id){confirmBox('Guruhni o‘chirish','Guruh o‘chiriladi. Davom ettirasizmi?',()=>{db.groups=db.groups.filter(g=>g.id!==id);save();render()})}
+function users(){return `<div class="card"><h3>Yangi foydalanuvchi</h3><div class="form-grid"><div class="field"><label>F.I.Sh</label><input id="un" placeholder="To‘liq ism"></div><div class="field"><label>Rol</label><select id="ur"><option value="oquvchi">O‘quvchi</option><option value="ustoz">Ustoz</option><option value="admin">Admin</option></select></div><div class="field"><label>Login</label><input id="uu" placeholder="login"></div><div class="field"><label>Parol</label><input id="up" placeholder="parol"></div></div><button class="btn btn-primary" onclick="addUser()">Qo‘shish</button></div><div class="card"><div class="table-wrap"><table><tr><th>Ism</th><th>Rol</th><th>Login</th><th>Parol</th><th>Amal</th></tr>${db.users.map(u=>`<tr><td>${esc(u.name)}</td><td><span class="badge green">${esc(u.role)}</span></td><td>${esc(u.username)}</td><td>${esc(u.password)}</td><td>${u.role==='direktor'?'-':`<button class="btn btn-danger" onclick="delUser('${u.id}')">O‘chirish</button>`}</td></tr>`).join('')}</table></div></div>`}
+function addUser(){if(!un.value.trim()||!uu.value.trim()||!up.value.trim())return toast('Barcha maydonlarni to‘ldiring');if(db.users.some(u=>u.username===uu.value.trim()))return toast('Bu login band');const u={id:'u'+Date.now(),name:un.value.trim(),role:ur.value,username:uu.value.trim(),password:up.value.trim()};if(u.role==='oquvchi'){u.groupId=db.groups[0]?.id||'';u.paid=false;u.grades=[];u.attendance=[]}db.users.push(u);save();render();toast('Foydalanuvchi qo‘shildi')}
+function delUser(id){confirmBox('Foydalanuvchini o‘chirish','Bu foydalanuvchi tizimdan o‘chiriladi?',()=>{db.users=db.users.filter(u=>u.id!==id);save();render()})}
+function payments(){const us=db.users.filter(u=>u.role==='oquvchi');return cards([{label:'JAMI TO‘LOV',value:FEE.toLocaleString('uz-UZ')+' so‘m'},{label:'TO‘LANGAN',value:us.filter(u=>u.paid).length+' ta',color:'green'},{label:'TO‘LANMAGAN',value:us.filter(u=>!u.paid).length+' ta',color:'red'},{label:'TUSHUM',value:(us.filter(u=>u.paid).length*FEE/1000000).toFixed(2)+' mln',color:'yellow'}])+'<div class="card"><div class="table-wrap"><table><tr><th>O‘quvchi</th><th>Guruh</th><th>Holat</th><th>Amal</th></tr>'+us.map(u=>`<tr><td>${esc(u.name)}</td><td>${esc(groupName(u.groupId))}</td><td><span class="badge ${u.paid?'green':'red'}">${u.paid?'To‘langan':'To‘lanmagan'}</span></td><td><button class="btn ${u.paid?'btn-danger':'btn-primary'}" onclick="togglePaid('${u.id}')">${u.paid?'Bekor qilish':'To‘lov qabul qilish'}</button></td></tr>`).join('')+'</table></div></div>'}
+function togglePaid(id){const u=db.users.find(x=>x.id===id);u.paid=!u.paid;save();render();toast(u.paid?'To‘lov tasdiqlandi':'To‘lov bekor qilindi')}
+function students(){const us=db.users.filter(u=>u.role==='oquvchi');return '<div class="card"><div class="table-wrap"><table><tr><th>O‘quvchi</th><th>Guruh</th><th>O‘rtacha</th><th>Davomat</th><th>To‘lov</th></tr>'+us.map(u=>{const s=stats(u);return `<tr><td>${esc(u.name)}</td><td>${esc(groupName(u.groupId))}</td><td><b>${s.avg}</b></td><td>${s.att}%</td><td><span class="badge ${u.paid?'green':'red'}">${u.paid?'To‘langan':'Qarzdor'}</span></td></tr>`}).join('')+'</table></div></div>'}
+function ratings(){const listed=rankStudents('all');return `<div class="card"><h3>Umumiy reyting</h3><div class="table-wrap"><table><tr><th>O‘rin</th><th>O‘quvchi</th><th>Guruh</th><th>Baho</th><th>Davomat</th><th>Ball</th></tr>${listed.map((u,i)=>`<tr><td><b>${i+1}</b></td><td>${esc(u.name)}</td><td>${esc(groupName(u.groupId))}</td><td>${u.st.avg}</td><td>${u.st.att}%</td><td><span class="badge green">${u.st.score}</span></td></tr>`).join('')}</table></div></div>`}
+function journal(){if(activeUser.role!=='ustoz')return '';const groups=db.groups.filter(g=>g.teacherId===activeUser.id);if(!groups.length)return '<div class="card">Sizga hali guruh biriktirilmagan.</div>';let html='';for(const g of groups){const us=db.users.filter(u=>u.role==='oquvchi'&&u.groupId===g.id);html+=`<div class="card"><h3>${esc(g.name)} <small class="green">${esc(g.schedule)}</small></h3><div class="table-wrap"><table><tr><th>O‘quvchi</th><th>Baho</th><th>Davomat</th><th>Amal</th></tr>`+us.map(u=>{const last=u.grades?.at(-1),lastAtt=u.attendance?.at(-1);return `<tr><td>${esc(u.name)}</td><td><input id="sc_${u.id}" type="number" min="0" max="100" value="${last?.score||''}" style="width:78px"></td><td><select id="at_${u.id}" style="width:110px"><option ${lastAtt?.status==='Keldi'?'selected':''}>Keldi</option><option ${lastAtt?.status==='Kelmadi'?'selected':''}>Kelmadi</option></select></td><td><button class="btn btn-primary" onclick="saveJournal('${u.id}')">Saqlash</button></td></tr>`}).join('')+`</table></div></div>`}return html}
+function saveJournal(id){const u=db.users.find(x=>x.id===id),score=Number(document.querySelector('#sc_'+id).value),att=document.querySelector('#at_'+id).value;const date=new Date().toISOString().slice(0,10);if(score<0||score>100)return toast('Baho 0–100 oralig‘ida bo‘lishi kerak');u.grades=u.grades||[];u.attendance=u.attendance||[];u.grades.push({date,score,topic:'Nazorat'});u.attendance.push({date,status:att});save();render();toast('Ma’lumot saqlandi')}
+function studentView(){const u=db.users.find(x=>x.id===activeUser.id),s=stats(u);return cards([{label:'GURUH',value:u.groupId?groupName(u.groupId):'-',color:'blue'},{label:'O‘RTACHА BAHO',value:s.avg,color:'green'},{label:'DAVOMAT',value:s.att+'%',color:'yellow'},{label:'TO‘LOV',value:u.paid?'To‘langan':'Qarzdor',color:u.paid?'green':'red'}])+'<div class="card"><h3>Baholar tarixi</h3><div class="table-wrap"><table><tr><th>Sana</th><th>Mavzu</th><th>Baho</th></tr>'+ (u.grades||[]).map(g=>`<tr><td>${esc(g.date)}</td><td>${esc(g.topic)}</td><td><b>${g.score}</b></td></tr>`).join('')+'</table></div></div>'}
+function confirmBox(title,msg,onOk){document.querySelector('#modalRoot').innerHTML=`<div class="modal-bg"><div class="modal"><h3>${esc(title)}</h3><p style="color:var(--muted)">${esc(msg)}</p><div class="modal-actions"><button class="btn" onclick="closeModal()">Bekor qilish</button><button class="btn btn-danger" id="okModal">O‘chirish</button></div></div></div>`;document.querySelector('#okModal').onclick=()=>{closeModal();onOk()}}
+function closeModal(){document.querySelector('#modalRoot').innerHTML=''}
+document.querySelector('#date').textContent=new Date().toLocaleDateString('uz-UZ',{year:'numeric',month:'long',day:'numeric'});
+</script>
 </body>
 </html>
